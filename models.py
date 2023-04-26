@@ -26,6 +26,7 @@ class PerceptronModel(object):
             x: a node with shape (1 x dimensions)
         Returns: a node containing a single number (the score)
         """
+        return nn.DotProduct(self.w, x)
         "*** YOUR CODE HERE ***"
 
     def get_prediction(self, x):
@@ -34,6 +35,11 @@ class PerceptronModel(object):
 
         Returns: 1 or -1
         """
+        scaler = nn.DotProduct(self.w, x)
+        if (nn.as_scalar(scaler)) > 0:
+            return 1
+        else:
+            return 0
         "*** YOUR CODE HERE ***"
 
     def train(self, dataset):
