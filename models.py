@@ -35,13 +35,28 @@ class PerceptronModel(object):
 
         Returns: 1 or -1
         """
-        
+        scaler = nn.DotProduct(self.w, x)
+        if (nn.as_scalar(scaler)) >= 0:
+            return 1
+        else:
+            return -1
         "*** YOUR CODE HERE ***"
 
     def train(self, dataset):
         """
         Train the perceptron until convergence.
         """
+        batch_size = 1
+        need = True
+        while need:
+            need = False
+            for x, y in dataset.iterate_once(batch_size):
+                y_scalar = nn.as_scalar(y)
+                if (y_scalar != self.get_prediction(x)):
+                    need = True
+                    self.w.update(x,y_scalar)
+                    
+
         "*** YOUR CODE HERE ***"
 
 class RegressionModel(object):
