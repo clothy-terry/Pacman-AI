@@ -35,11 +35,7 @@ class PerceptronModel(object):
 
         Returns: 1 or -1
         """
-        scaler = nn.DotProduct(self.w, x)
-        if (nn.as_scalar(scaler)) > 0:
-            return 1
-        else:
-            return 0
+        
         "*** YOUR CODE HERE ***"
 
     def train(self, dataset):
