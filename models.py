@@ -269,6 +269,8 @@ class LanguageIDModel(object):
             xwhw = nn.Add(nn.Linear(xs[i], self.wx), nn.Linear(hi, self.wh))
             #hidden h for each i
             hi = nn.ReLU(nn.AddBias(xwhw, self.b))
+        predicted_y = nn.ReLU(nn.AddBias(nn.Linear(hi, self.w_last)), self.b_last)
+        return predicted_y
 
 
     def get_loss(self, xs, y):
