@@ -204,7 +204,6 @@ class DigitClassificationModel(object):
                 self.b1.update(gb1, -self.learnRate)
                 self.b2.update(gb2, -self.learnRate)
             validation = dataset.get_validation_accuracy()
-
         "*** YOUR CODE HERE ***"
 
 class LanguageIDModel(object):
