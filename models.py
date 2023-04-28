@@ -189,7 +189,7 @@ class DigitClassificationModel(object):
         """
         batch_size = 100
         validation = 0
-        while validation < 0.98:
+        while validation < 0.975:
             for x, y in dataset.iterate_once(batch_size):
                 loss = self.get_loss(x,y)
                 gw1, gw2, gb1, gb2 = nn.gradients(loss, [self.w1, self.w2, self.b1, self.b2])
