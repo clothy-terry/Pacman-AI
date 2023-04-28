@@ -71,7 +71,7 @@ class RegressionModel(object):
         self.b1 = nn.Parameter(1, 512)
         self.w2 = nn.Parameter(512, 1)
         self.b2 = nn.Parameter(1, 1)
-        self.learnRate = 0.01
+        self.learnRate = 0.03
 
         "*** YOUR CODE HERE ***"
 
@@ -140,6 +140,11 @@ class DigitClassificationModel(object):
     def __init__(self):
         # Initialize your model parameters here
         "*** YOUR CODE HERE ***"
+        self.w1 = nn.Parameter(784, 200)# first argument should be dim (x)
+        self.b1 = nn.Parameter(1, 200)
+        self.w2 = nn.Parameter(200, 10)
+        self.b2 = nn.Parameter(1, 10)
+        self.learnRate = 0.5
 
     def run(self, x):
         """
@@ -156,6 +161,7 @@ class DigitClassificationModel(object):
                 (also called logits)
         """
         "*** YOUR CODE HERE ***"
+
 
     def get_loss(self, x, y):
         """
@@ -196,6 +202,13 @@ class LanguageIDModel(object):
 
         # Initialize your model parameters here
         "*** YOUR CODE HERE ***"
+        d = 500
+        self.wx = nn.Parameter(self.num_chars, d)# first argument should be dim (x)
+        self.bi = nn.Parameter(1, d)
+        self.wh = nn.Parameter(d, d)
+        self.b = nn.Parameter(1, d)
+        self.w_last = nn.Parameter(d, 5)
+        self.b_last = nn.Parameter(1, 5)
 
     def run(self, xs):
         """
@@ -227,6 +240,13 @@ class LanguageIDModel(object):
                 (also called logits)
         """
         "*** YOUR CODE HERE ***"
+        #initial h
+        hi = nn.ReLU(nn.AddBias(nn.Linear(xs[0], self.wx), self.bi))
+        for i in range(1, len(xs)) :
+            xwhw = nn.Add(nn.Linear(xs[i], self.wx), nn.Linear(hi, self.wh))
+            #hidden h for each i
+            hi = nn.ReLU(nn.AddBias(xwhw, self.b))
+
 
     def get_loss(self, xs, y):
         """
