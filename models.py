@@ -232,6 +232,7 @@ class LanguageIDModel(object):
         self.b = nn.Parameter(1, d)
         self.w_last = nn.Parameter(d, 5)
         self.b_last = nn.Parameter(1, 5)
+        self.learnRate = 0.2
 
     def run(self, xs):
         """
@@ -269,7 +270,7 @@ class LanguageIDModel(object):
             xwhw = nn.Add(nn.Linear(xs[i], self.wx), nn.Linear(hi, self.wh))
             #hidden h for each i
             hi = nn.ReLU(nn.AddBias(xwhw, self.b))
-        predicted_y = nn.ReLU(nn.AddBias(nn.Linear(hi, self.w_last)), self.b_last)
+        predicted_y = nn.ReLU(nn.AddBias(nn.Linear(hi, self.w_last), self.b_last))
         return predicted_y
 
 
@@ -289,9 +290,26 @@ class LanguageIDModel(object):
         """
         
         "*** YOUR CODE HERE ***"
+        predicted_y = self.run(xs)
+        loss = nn.SoftmaxLoss(predicted_y, y)
+        return loss
 
     def train(self, dataset):
         """
         Trains the model.
         """
         "*** YOUR CODE HERE ***"
+        batch_size = 100
+        validation = 0
+        while validation < 0.81:
+            for x, y in dataset.iterate_once(batch_size):
+                loss = self.get_loss(x,y)
+                gwx, gwh, gwl, gwb, gwbi, gwbl = nn.gradients(loss, [self.wx, self.wh, self.w_last, self.b, self.bi, self.b_last])
+                self.wx.update(gwx, -self.learnRate)
+                self.wh.update(gwh, -self.learnRate)
+                self.w_last.update(gwl, -self.learnRate)
+                self.b.update(gwb, -self.learnRate)
+                self.bi.update(gwbi, -self.learnRate)
+                self.b_last.update(gwbl, -self.learnRate)
+            validation = dataset.get_validation_accuracy()
+
