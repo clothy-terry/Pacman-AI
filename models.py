@@ -203,7 +203,7 @@ class DigitClassificationModel(object):
                 self.w2.update(gw2, -self.learnRate)
                 self.b1.update(gb1, -self.learnRate)
                 self.b2.update(gb2, -self.learnRate)
-                validation = dataset.get_validation_accuracy()
+            validation = dataset.get_validation_accuracy()
 
         "*** YOUR CODE HERE ***"
 
@@ -287,6 +287,7 @@ class LanguageIDModel(object):
             y: a node with shape (batch_size x 5)
         Returns: a loss node
         """
+        
         "*** YOUR CODE HERE ***"
 
     def train(self, dataset):
