@@ -139,11 +139,6 @@ class DigitClassificationModel(object):
     """
     def __init__(self):
         # Initialize your model parameters here
-        self.w1 = nn.Parameter(784, 200)# first argument should be dim (x)
-        self.b1 = nn.Parameter(1, 200)
-        self.w2 = nn.Parameter(200, 10)
-        self.b2 = nn.Parameter(1, 10)
-        self.learnRate = 0.5
         "*** YOUR CODE HERE ***"
         self.w1 = nn.Parameter(784, 200)# first argument should be dim (x)
         self.b1 = nn.Parameter(1, 200)
