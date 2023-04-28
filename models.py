@@ -287,6 +287,7 @@ class LanguageIDModel(object):
             y: a node with shape (batch_size x 5)
         Returns: a loss node
         """
+        
         "*** YOUR CODE HERE ***"
         predicted_y = self.run(xs)
         loss = nn.SoftmaxLoss(predicted_y, y)
