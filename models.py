@@ -225,14 +225,14 @@ class LanguageIDModel(object):
 
         # Initialize your model parameters here
         "*** YOUR CODE HERE ***"
-        d = 500
+        d = 250
         self.wx = nn.Parameter(self.num_chars, d)# first argument should be dim (x)
         self.bi = nn.Parameter(1, d)
         self.wh = nn.Parameter(d, d)
         self.b = nn.Parameter(1, d)
         self.w_last = nn.Parameter(d, 5)
         self.b_last = nn.Parameter(1, 5)
-        self.learnRate = 0.2
+        self.learnRate = 0.1
 
     def run(self, xs):
         """
@@ -300,7 +300,7 @@ class LanguageIDModel(object):
         "*** YOUR CODE HERE ***"
         batch_size = 100
         validation = 0
-        while validation < 0.81:
+        while validation < 0.85:
             for x, y in dataset.iterate_once(batch_size):
                 loss = self.get_loss(x,y)
                 gwx, gwh, gwl, gwb, gwbi, gwbl = nn.gradients(loss, [self.wx, self.wh, self.w_last, self.b, self.bi, self.b_last])
